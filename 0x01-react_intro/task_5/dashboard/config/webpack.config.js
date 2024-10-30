@@ -52,3 +52,50 @@ module.exports = {
   },
   devtool: 'inline-source-map', // Enable inline source maps
 };
+module: {
+  rules: [
+    {
+      test: /\.js$/, // Apply this rule for .js files
+      exclude: /node_modules/, // Exclude the node_modules directory
+      use: {
+        loader: 'babel-loader', // Use babel-loader
+      },
+    },
+    {
+      test: /\.jsx$/, // Apply this rule for .jsx files
+      exclude: /node_modules/, // Exclude the node_modules directory
+      use: {
+        loader: 'babel-loader', // Use babel-loader
+      },
+    },
+    {
+      test: /\.css$/, // Apply this rule for .css files
+      use: ['style-loader', 'css-loader'], // Use style-loader and css-loader
+    },
+    {
+      test: /\.(png|jpe?g|gif|svg)$/i, // Apply this rule for image files
+      use: [
+        {
+          loader: 'image-webpack-loader', // Use image-webpack-loader for images
+          options: {
+            mozjpeg: {
+              progressive: true,
+              quality: 65,
+            },
+            pngquant: {
+              quality: [0.65, 0.90],
+              speed: 4,
+            },
+            gifsicle: {
+              interlaced: false,
+            },
+            webp: {
+              quality: 75,
+            },
+          },
+        },
+        'file-loader', // Use file-loader to copy the files
+      ],
+    },
+  ],
+},
